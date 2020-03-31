@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
+
 namespace Project1.DataAccess.Model
 {
     public partial class Project0DbContext : DbContext
@@ -24,10 +25,7 @@ namespace Project1.DataAccess.Model
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer(SecretConfig.ConnectionString);
-            }
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 namespace Project1.DataAccess.Model
+{ 
     public partial class StoreLocation
     {
         public StoreLocation()

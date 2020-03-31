@@ -1,0 +1,33 @@
+﻿@model CustomerViewModel
+@{
+    ViewData["Title"] = "Customer";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>We will be able to add and view a Customer here!.</p>
+<table>
+    <tr>
+        <td>@Html.DisplayFor(model => model.CstmId)</td>
+        <td>@Model.CstmId</td>
+    </tr>
+    <tr>
+        <td>@Html.DisplayFor(model => model.CstmFirstName)</td>
+        <td>@Model.CstmFirstName</td>
+    </tr>
+    <tr>
+        <td>@Html.DisplayFor(model => model.CstmLastName)</td>
+        <td>@Model.CstmLastName</td>
+    </tr>
+    <tr>
+        <td>@Html.DisplayFor(model => model.CstmEmail)</td>
+        <td>@Model.CstmEmail</td>
+    </tr>
+    <tr>
+        <td>@Html.DisplayFor(model => model.CstmDefaultLocation)</td>
+        <td>@Model.CstmDefaultLocation</td>
+    </tr>
+</table>
+
+
+
+

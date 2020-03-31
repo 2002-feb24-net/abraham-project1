@@ -26,7 +26,7 @@ namespace Project1.Domain.Model
             }
         }
 
-        public string CstmLasttName
+        public string CstmLastName
         {
             get => _cstmLastName;
             set

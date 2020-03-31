@@ -1,9 +1,10 @@
 ﻿using Project1.Domain.Interface;
-using Project1.Domain.Model;
 using Project1.DataAccess.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace Project1.DataAccess.Repositories
 {
@@ -11,29 +12,48 @@ namespace Project1.DataAccess.Repositories
     {
         private readonly Project0DbContext _dbContext;
 
+        public Project1Repository(Project0DbContext dbContext)
+        {
+            _dbContext = dbContext ?? throw new ArgumentException(nameof(dbContext));
+        }
+
         public void AddCustomer(Domain.Model.Customer customer)
         {
-            throw new NotImplementedException();
+            Customer entity = Mapper.MapCustomerWithOrders(customer);
+            _dbContext.Add(entity);
         }
 
         public void AddOrder(Domain.Model.ProductOrder productOrder, Domain.Model.OrderList orderList)
         {
-            throw new NotImplementedException();
+            ProductOrder entity = Mapper.MapProductOrder(productOrder);
+            OrderList entity2 = Mapper.MapOrderLists(orderList);
+            _dbContext.Add(entity);
+            _dbContext.Add(entity2);
         }
 
-        public Domain.Model.Customer GetCustomerByName(string firstName, string lastName)
+        public Domain.Model.Customer GetCustomerById(int id) => 
+            Mapper.MapCustomerWithOrders(_dbContext.Customer.Find(id));
+
+        public Domain.Model.ProductOrder GetOrderById(int id) =>
+            Mapper.MapProductOrder(_dbContext.ProductOrder.Find(id));
+        public IEnumerable<Domain.Model.ProductOrder> GetStoreHistory(int id)
         {
-            throw new NotImplementedException();
+            IQueryable<ProductOrder> items = _dbContext.ProductOrder
+                .Include(r => r.OrderList).AsNoTracking();
+
+            items = items.Where(r => r.OrderStrId == id);
+
+            return items.Select(Mapper.MapProductOrder);
         }
 
-        public Domain.Model.ProductOrder GetOrderByLocation(string locCity)
+        public IEnumerable<Domain.Model.ProductOrder> GetCustomerHistory(int id)
         {
-            throw new NotImplementedException();
-        }
+            IQueryable<ProductOrder> items = _dbContext.ProductOrder
+                .Include(r => r.OrderList).AsNoTracking();
 
-        public Domain.Model.ProductOrder GetOrderByName(string firstName, string lastName)
-        {
-            throw new NotImplementedException();
+            items = items.Where(r => r.OrderCstmId == id);
+
+            return items.Select(Mapper.MapProductOrder);
         }
 
         public void Save()
