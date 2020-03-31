@@ -27,7 +27,7 @@ namespace Project1
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<Project0DbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Project0Db")));
+            services.AddDbContext<Project0DbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Project0DB")));
 
             services.AddScoped<IProject1Repository, Project1Repository>();
             

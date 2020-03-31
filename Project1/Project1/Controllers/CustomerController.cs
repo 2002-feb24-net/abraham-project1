@@ -22,6 +22,10 @@ namespace Project1.WebUI.Controllers
             CustomerViewModel viewModel = new CustomerViewModel()
             {
                 CstmId = customer.CstmId,
+                CstmFirstName = customer.CstmFirstName,
+                CstmLastName = customer.CstmLastName,
+                CstmEmail = customer.CstmEmail,
+                CstmDefaultLocation = customer.CstmDefaultStoreLocation
             };
             return View(viewModel);
         }
