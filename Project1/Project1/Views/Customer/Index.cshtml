@@ -4,29 +4,56 @@
 }
 <h1>@ViewData["Title"]</h1>
 
-<p>We will be able to add and view a Customer here!.</p>
-<table>
-    <tr>
-        <td>@Html.DisplayFor(model => model.CstmId)</td>
-        <td>@Model.CstmId</td>
-    </tr>
-    <tr>
-        <td>@Html.DisplayFor(model => model.CstmFirstName)</td>
-        <td>@Model.CstmFirstName</td>
-    </tr>
-    <tr>
-        <td>@Html.DisplayFor(model => model.CstmLastName)</td>
-        <td>@Model.CstmLastName</td>
-    </tr>
-    <tr>
-        <td>@Html.DisplayFor(model => model.CstmEmail)</td>
-        <td>@Model.CstmEmail</td>
-    </tr>
-    <tr>
-        <td>@Html.DisplayFor(model => model.CstmDefaultLocation)</td>
-        <td>@Model.CstmDefaultLocation</td>
-    </tr>
-</table>
+@if (Model.CstmId == 0)
+{
+    <p>Enter the first name and last name of a customer you wish to search/add:</p>
+    <div>
+        <form asp-action="Index" method="GET" class="form-inline">
+            <label class="sr-only" for="search">Search:</label>
+            <input type="search" class="form-control mb-2 mr-sm-2 mb-sm-0" id="search" name="search" placeholder="Search" />
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+}
+@if (Model.CstmId > 0)
+{
+    <div>
+        <table>
+            <tr>
+                <td>Customer ID: </td>
+                <td>@Html.DisplayFor(model => model.CstmId)</td>
+            </tr>
+            <tr>
+                <td>First Name: </td>
+                <td>@Html.DisplayFor(model => model.CstmFirstName)</td>
+            </tr>
+            <tr>
+                <td>Last Name: </td>
+                <td>@Html.DisplayFor(model => model.CstmLastName)</td>
+            </tr>
+            <tr>
+                <td>Email: </td>
+                <td>@Html.DisplayFor(model => model.CstmEmail)</td>
+            </tr>
+            <tr>
+                <td>Default Location: </td>
+                <td>@Html.DisplayFor(model => model.CstmDefaultLocation)</td>
+            </tr>
+        </table>
+    </div>
+    <a style="padding:10px" asp-action="Index">Back to Search</a>
+}
+
+@if (Model.CstmId == -1)
+{
+    <br />
+    <div>
+        <p>The customer does not exist in our Database. Would you like to add them?</p>
+        <a style="padding:10px" asp-action="AddCustomer">Add Customer</a>  <a style="padding:10px" asp-action="Index">Back to Search</a>
+    </div>
+}
+
+
 
 
 

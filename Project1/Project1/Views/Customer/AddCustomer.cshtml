@@ -1,0 +1,25 @@
+﻿@model CustomerViewModel
+@{
+    ViewData["Title"] = "Add Customer";
+}
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <form asp-action="AddCustomer" method="POST" class="form-inline">
+        <table>
+            <tr>
+                <td>Enter First Name: </td>
+                <td>@Html.TextBoxFor(model => model.CstmFirstName)</td>
+            </tr>
+            <tr>
+                <td>Enter Last Name: </td>
+                <td>@Html.TextBoxFor(model => model.CstmLastName)</td>
+            </tr>
+            <tr>
+                <td>Enter Email: </td>
+                <td>@Html.TextBoxFor(model => model.CstmEmail)</td>
+            </tr>
+        </table>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>

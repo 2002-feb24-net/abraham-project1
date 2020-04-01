@@ -66,6 +66,7 @@ namespace Project1.Domain.Model
                 {
                     throw new ArgumentOutOfRangeException("Value may not be a negative number.", nameof(value));
                 }
+                _cstmDefaultStoreLocation = value;
             }
         }
 

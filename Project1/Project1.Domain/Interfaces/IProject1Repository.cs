@@ -7,7 +7,7 @@ namespace Project1.Domain.Interface
 {
     public interface IProject1Repository
     {
-        Customer GetCustomerById(int id);
+        Customer GetCustomerById(string fullName);
 
         ProductOrder GetOrderById(int id);
 

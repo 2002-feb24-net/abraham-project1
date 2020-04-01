@@ -31,8 +31,18 @@ namespace Project1.DataAccess.Repositories
             _dbContext.Add(entity2);
         }
 
-        public Domain.Model.Customer GetCustomerById(int id) => 
-            Mapper.MapCustomerWithOrders(_dbContext.Customer.Find(id));
+        public Domain.Model.Customer GetCustomerById(string fullName)
+        {
+            var customer = _dbContext.Customer.Include(p => p.ProductOrder)
+                .FirstOrDefault(x => x.CstmFirstName + " " + x.CstmLastName == fullName);
+
+            if (customer != null)
+            {
+                return Mapper.MapCustomerWithOrders(customer);
+            }
+            return null;
+
+        }
 
         public Domain.Model.ProductOrder GetOrderById(int id) =>
             Mapper.MapProductOrder(_dbContext.ProductOrder.Find(id));
@@ -58,7 +68,7 @@ namespace Project1.DataAccess.Repositories
 
         public void Save()
         {
-            throw new NotImplementedException();
+            _dbContext.SaveChanges();
         }
     }
 }

@@ -22,12 +22,7 @@ namespace Project1.DataAccess.Model
         public virtual DbSet<ProductOrder> ProductOrder { get; set; }
         public virtual DbSet<StoreInventory> StoreInventory { get; set; }
         public virtual DbSet<StoreLocation> StoreLocation { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-
-        }
-
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Customer>(entity =>
