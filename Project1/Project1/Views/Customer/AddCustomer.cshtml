@@ -5,21 +5,23 @@
 <h1>@ViewData["Title"]</h1>
 
 <div>
-    <form asp-action="AddCustomer" method="POST" class="form-inline">
+    <form asp-action="AddCustomer" method="POST" class="form-check">
         <table>
             <tr>
-                <td>Enter First Name: </td>
+                <td align="right" style="padding-right:5px">@Html.LabelFor(model => model.CstmFirstName)</td>
                 <td>@Html.TextBoxFor(model => model.CstmFirstName)</td>
             </tr>
             <tr>
-                <td>Enter Last Name: </td>
+                <td align="right" style="padding-right:5px">@Html.LabelFor(model => model.CstmLastName)</tdstyle="padding-right:5px">
                 <td>@Html.TextBoxFor(model => model.CstmLastName)</td>
             </tr>
             <tr>
-                <td>Enter Email: </td>
+                <td align="right" style="padding-right:5px">@Html.LabelFor(model => model.CstmEmail)</td>
                 <td>@Html.TextBoxFor(model => model.CstmEmail)</td>
             </tr>
+            <tr>
+                <td align="center" colspan="2"><button style="align-items:center" type="submit" class="btn btn-primary">Submit</button><a style="padding:10px" asp-action="Index">Cancel</a></td>
+            </tr>
         </table>
-        <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
