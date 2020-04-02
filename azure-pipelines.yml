@@ -10,10 +10,12 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Print hellow world'
+#- script: echo Hello, world!
+#  displayName: 'Print hellow world'
 
-- script: |
-    echo "Showing current directory contents"
-    ls
-  displayName: 'Show directory contents'
+#- script: |
+#    echo "Showing current directory contents"
+#    ls
+#  displayName: 'Show directory contents'
+- script: dotnet build
+  displayName: 'dotnet build'
