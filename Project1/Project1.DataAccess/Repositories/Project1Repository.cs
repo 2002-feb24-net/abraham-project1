@@ -44,8 +44,17 @@ namespace Project1.DataAccess.Repositories
 
         }
 
-        public Domain.Model.ProductOrder GetOrderById(int id) =>
-            Mapper.MapProductOrder(_dbContext.ProductOrder.Find(id));
+        public Domain.Model.ProductOrder GetOrderById(int id)
+        {
+            var order = _dbContext.ProductOrder.Include(o => o.OrderList)
+                    .FirstOrDefault(x => x.OrderId == id);
+
+            if (order != null)
+            {
+                return Mapper.MapProductOrder(order);
+            }
+            return null;
+        }
         public IEnumerable<Domain.Model.ProductOrder> GetStoreHistory(int id)
         {
             IQueryable<ProductOrder> items = _dbContext.ProductOrder

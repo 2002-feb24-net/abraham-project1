@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Project1.Domain.Model;
 using Project1.WebUI.Models;
 
 namespace Project1.WebUI.Models
@@ -23,5 +24,7 @@ namespace Project1.WebUI.Models
 
         [Display(Name = "Default Store:")]
         public int? CstmDefaultLocation { get; set; }
+
+        public List<ProductOrder> ProductOrders { get; set; } = new List<ProductOrder>();
     }
 }

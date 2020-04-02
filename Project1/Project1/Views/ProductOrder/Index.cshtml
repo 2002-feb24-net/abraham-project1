@@ -1,0 +1,46 @@
+﻿@model CustomerViewModel
+@{
+    ViewData["Title"] = "Orders";
+}
+<h1>@ViewData["Title"]</h1>
+
+@if (Model.CstmId == 0)
+{
+    <p>Enter the first name and last name of a customer with an order:</p>
+    <div>
+        <form asp-action="Index" method="GET" class="form-inline">
+            <label class="sr-only" for="search">Search:</label>
+            <input type="search" class="form-control mb-2 mr-sm-2 mb-sm-0" id="search" name="search" placeholder="Search" />
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+}
+@if (Model.CstmId > 0)
+{
+    <div>
+        <table>
+            <tr>
+                <td>@Html.LabelFor(model => model.CstmFirstName)</td>
+                <td>@Html.DisplayFor(model => model.CstmFirstName)</td>
+                <td>@Html.LabelFor(model => model.CstmLastName)</td>
+                <td>@Html.DisplayFor(model => model.CstmLastName)</td>
+            </tr>
+        </table>
+    </div>
+    <table>
+        <tr>
+            <td>Order ID</td>
+            <td>Order Date</td>
+            <td></td>
+        </tr>
+        @foreach(var p in Model.ProductOrders.ToList())
+        {
+            <tr>
+                <td>@p.OrderId</td>
+                <td>@p.OrderOrdDate</td>
+                <td><a style="padding:10px" asp-action="OrderDetails(@p.OrderId)">Details</a></td>
+            </tr>
+        }
+    </table>
+    <a style="padding:10px" asp-action="Index">Back to Search</a>
+}
