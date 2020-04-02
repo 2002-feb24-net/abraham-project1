@@ -32,4 +32,4 @@ pool:
 #  displayName: 'Show directory contents'
 
 - sript: dotnet build
-  displayName: dotnet build
+  displayName: 'dotnet build'
