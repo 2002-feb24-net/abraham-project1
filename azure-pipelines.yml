@@ -22,7 +22,7 @@ pool:
 # "script" is one kind of step - on linux it'll run in bash
 # on windows it'll run in command prompt
 # give all steps a good display name
-#steps:
+steps:
 #- script: echo Hello, world!
 #  displayName: 'Print hello world'
 
