@@ -31,5 +31,5 @@ pool:
 #    ls
 #  displayName: 'Show directory contents'
 
-- sript: dotnet build
+- script: dotnet build
   displayName: 'dotnet build'
