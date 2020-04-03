@@ -33,12 +33,12 @@
             <td>Order Date</td>
             <td></td>
         </tr>
-        @foreach(var p in Model.ProductOrders.ToList())
+        @foreach(var p in Model.ProductOrders)
         {
             <tr>
                 <td>@p.OrderId</td>
                 <td>@p.OrderOrdDate</td>
-                <td><a style="padding:10px" asp-action="OrderDetails(@p.OrderId)">Details</a></td>
+                <td>@Html.ActionLink("Details", "OrderDetails", new { OrderId = p.OrderId })</td>
             </tr>
         }
     </table>

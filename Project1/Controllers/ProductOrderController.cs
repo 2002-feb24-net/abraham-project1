@@ -47,7 +47,12 @@ namespace Project1.WebUI.Controllers
 
         public ActionResult OrderDetails(int OrderId)
         {
-            return View();
+            var order = Repo.GetOrderById(OrderId);
+            var viewModel = new ProductOrderViewModel
+            {
+
+            };
+            return View(viewModel);
         }
 
     }

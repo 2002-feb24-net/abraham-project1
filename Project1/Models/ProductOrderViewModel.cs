@@ -21,6 +21,10 @@ namespace Project1.WebUI.Models
         [Display(Name = "Order Date:")]
         public DateTime? OrderOrdDate { get; set; }
 
-        public List<OrderList> OrderList { get; set; } = new List<OrderList>();
+        public List<OrderList> OrderLists { get; set; }
+
+        public List<Customer> Customers { get; set; }
+
+        public List<StoreLocation> StoreLocations { get; set; }
     }
 }
