@@ -33,7 +33,13 @@ steps:
     command: 'publish'
     publishWebProjects: true
 
-
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'Azure subscription 1(1)(b6b44910-0c7e-4ab2-88b4-bbc5b89bf8ec)'
+    appType: 'webApp'
+    WebAppName: 'P1-PC-Part-Collector'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
 
 - task: SonarCloudAnalyze@1
 
