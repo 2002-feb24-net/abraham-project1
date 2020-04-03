@@ -28,6 +28,13 @@ steps:
 - script: dotnet build
   displayName: 'dotnet build'
 
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    publishWebProjects: true
+
+
+
 - task: SonarCloudAnalyze@1
 
 - task: SonarCloudPublish@1
