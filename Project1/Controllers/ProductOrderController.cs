@@ -48,9 +48,16 @@ namespace Project1.WebUI.Controllers
         public ActionResult OrderDetails(int OrderId)
         {
             var order = Repo.GetOrderById(OrderId);
+
+            var orders = Repo.GetCustomerHistory(OrderId);
+            
             var viewModel = new ProductOrderViewModel
             {
-
+                OrderId = order.OrderId,
+                OrderCstmId = order.OrderCstmId,
+                OrderStrId = order.OrderStrId,
+                OrderOrdDate = order.OrderOrdDate,
+                OrderLists = order.OrderList
             };
             return View(viewModel);
         }

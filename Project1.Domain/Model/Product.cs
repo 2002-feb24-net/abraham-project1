@@ -7,7 +7,6 @@ namespace Project1.Domain.Model
     public class Product
     {
         private string _prodName;
-        private string _prodDescription;
         private decimal _prodPrice;
 
         public int ProdId { get; set; }
@@ -36,6 +35,7 @@ namespace Project1.Domain.Model
                 {
                     throw new ArgumentOutOfRangeException("Value may not be a negative number.", nameof(value));
                 }
+                _prodPrice = value;
             }
         }
 

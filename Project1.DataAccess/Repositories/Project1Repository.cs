@@ -49,6 +49,8 @@ namespace Project1.DataAccess.Repositories
             var order = _dbContext.ProductOrder.Include(o => o.OrderList)
                     .FirstOrDefault(x => x.OrderId == id);
 
+            var products = _dbContext.Product.Where(p => p.OrderList.Any(o => o.LstOrderId == id)).ToList();
+
             if (order != null)
             {
                 return Mapper.MapProductOrder(order);

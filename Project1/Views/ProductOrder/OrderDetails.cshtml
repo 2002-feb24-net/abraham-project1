@@ -3,3 +3,23 @@
     ViewData["Title"] = "Orders Details";
 }
 <h1>@ViewData["Title"]</h1>
+<table>
+    <tr>
+        <td>@Html.LabelFor(p => p.OrderId)</td>
+        <td>@Html.DisplayFor(p => p.OrderId)</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(p => p.OrderOrdDate)</td>
+        <td>@Html.DisplayFor(p => p.OrderOrdDate)</td>
+        <td></td>
+    </tr>
+    @foreach (var o in Model.OrderLists)
+    {
+        <tr>
+            <td>@o.LstId</td>
+            <td>@o.LstOrderId</td>
+            <td>@o.LstProdId</td>
+        </tr>
+    }
+</table>
