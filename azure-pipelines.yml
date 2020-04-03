@@ -13,9 +13,23 @@ steps:
 #- script: echo Hello, world!
 #  displayName: 'Print hellow world'
 
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'sonarcloud-abraham'
+    organization: '2002-feb24-net'
+    scannerMode: 'MSBuild'
+    projectKey: '2002-feb24-net_abraham-project1'
+    projectName: 'p1-pc-part-collector'
+
 #- script: |
 #    echo "Showing current directory contents"
 #    ls
 #  displayName: 'Show directory contents'
 - script: dotnet build
   displayName: 'dotnet build'
+
+- task: SonarCloudAnalyze@1
+
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
