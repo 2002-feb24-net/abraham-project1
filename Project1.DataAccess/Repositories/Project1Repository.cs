@@ -65,6 +65,18 @@ namespace Project1.DataAccess.Repositories
             return Mapper.MapProductOrder(orderList);
         }
 
+        public IEnumerable<Domain.Model.StoreLocation> GetStoreLocations()
+        {
+            var storeLoc = _dbContext.StoreLocation;
+            return storeLoc.Select(Mapper.MapStoreLocation);
+        }
+
+        public IEnumerable<Domain.Model.Product> GetAllProducts()
+        {
+            var products = _dbContext.Product;
+            return products.Select(Mapper.MapPrduct);
+        }
+
         public void Save()
         {
             _dbContext.SaveChanges();

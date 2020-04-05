@@ -8,10 +8,11 @@
 {
     <p>Enter the first name and last name of a customer with an order:</p>
     <div>
-        <form asp-action="Index" method="GET" class="form-inline">
+        <form method="GET" class="form-inline">
             <label class="sr-only" for="search">Search:</label>
             <input type="search" class="form-control mb-2 mr-sm-2 mb-sm-0" id="search" name="search" placeholder="Search" />
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary" asp-action="Index">Submit</button>
+            <button type="submit" class="btn btn-primary" asp-action="AddOrder">AddOrder</button>
         </form>
     </div>
 }

@@ -17,6 +17,10 @@ namespace Project1.Domain.Interface
 
         IEnumerable<Product> GetProduct(int? id);
 
+        IEnumerable<Product> GetAllProducts();
+
+        IEnumerable<StoreLocation> GetStoreLocations();
+
         void Save();
     }
 }

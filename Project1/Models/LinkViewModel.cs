@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Project1.Domain.Model;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -8,10 +11,15 @@ namespace Project1.WebUI.Models
     public class LinkViewModel
     {
         public CustomerViewModel CustomerViewModel { get; set; }
-        public OrderListViewModel OrderListViewModel { get; set; }
+
         public ProductOrderViewModel ProductOrderViewModel { get; set; }
-        public ProductViewModel ProductViewModel { get; set; }
-        public StoreInvetoryViewModel StoreInvetoryViewModel { get; set; }
-        public StoreLocationViewModel StoreLocationViewModel { get; set; }
+
+        public List<Product> productViewModels { get; set; } = new List<Product>();
+
+        public List<StoreLocation> storeLocationViewModels { get; set; } = new List<StoreLocation>();
+
+        public int[] SelectedLocation { get; set; }
+
+        public IEnumerable<SelectListItem> LocationList { get; set; }
     }
 }

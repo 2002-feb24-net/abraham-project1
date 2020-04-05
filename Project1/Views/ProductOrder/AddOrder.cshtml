@@ -1,0 +1,15 @@
+﻿@model LinkViewModel
+@{
+    ViewData["Title"] = "Orders Details";
+}
+<style>
+    table, tr, td {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+</style>
+<h1>@ViewData["Title"]</h1>
+<div class="form-control-static">@Html.LabelFor(model => model.CustomerViewModel.CstmFirstName): @Html.TextBoxFor(model => model.CustomerViewModel.CstmFirstName)</div>
+<div class="form-control-static">@Html.LabelFor(model => model.CustomerViewModel.CstmLastName): @Html.TextBoxFor(model => model.CustomerViewModel.CstmLastName)</div>
+<div class="form-control-static">Select Location: @Html.DropDownListFor(model => model.SelectedLocation, Model.LocationList)</div>
+

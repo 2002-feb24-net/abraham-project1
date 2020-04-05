@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Project1.Domain.Interface;
 using Project1.Domain.Model;
 using Project1.WebUI.Models;
@@ -48,7 +49,7 @@ namespace Project1.WebUI.Controllers
             return View(viewModel);
         }
 
-        public ActionResult OrderDetails(int OrderId)
+        public ActionResult OrderDetails(string search)
         {
             var fullName = TempData["fullName"].ToString();
             var customer = Repo.GetCustomerByFullName(fullName);
@@ -80,6 +81,35 @@ namespace Project1.WebUI.Controllers
                     OrderLists = orderList.ToList(),
                     Products = products
                 }
+            };
+            return View(viewModel);
+        }
+
+        public ActionResult AddOrder(string search = "")
+        {
+            var customer = Repo.GetCustomerByFullName(search);
+            var storeLoc = Repo.GetStoreLocations();
+            var products = Repo.GetAllProducts();
+            List<SelectListItem> selectListItems = new List<SelectListItem>();
+            foreach(var li in storeLoc)
+            {
+                selectListItems.Add(new SelectListItem { Text = li.LocCity, Value = li.LocId.ToString() });
+            }
+
+            var viewModel = new LinkViewModel
+            {
+                CustomerViewModel = new CustomerViewModel
+                {
+                    CstmId = customer.CstmId,
+                    CstmFirstName = customer.CstmFirstName,
+                    CstmLastName = customer.CstmLastName,
+                    CstmEmail = customer.CstmEmail,
+                    CstmDefaultLocation = customer.CstmDefaultStoreLocation
+                },
+                productViewModels = products.ToList(),
+                storeLocationViewModels = storeLoc.ToList(),
+                LocationList = selectListItems
+
             };
             return View(viewModel);
         }
