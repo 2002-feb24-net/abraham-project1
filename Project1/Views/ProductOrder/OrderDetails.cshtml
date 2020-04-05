@@ -1,25 +1,42 @@
-﻿@model ProductOrderViewModel
+﻿@model LinkViewModel
 @{
     ViewData["Title"] = "Orders Details";
 }
+<style>
+    table, tr, td {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+</style>
 <h1>@ViewData["Title"]</h1>
+<div class="form-control-static">@Html.LabelFor(model => model.CustomerViewModel.CstmFirstName): @Html.DisplayFor(model => model.CustomerViewModel.CstmFirstName)</div>
+<div class="form-control-static">@Html.LabelFor(model => model.CustomerViewModel.CstmLastName): @Html.DisplayFor(model => model.CustomerViewModel.CstmLastName)</div>
+<div class="form-control-static">@Html.LabelFor(model => model.ProductOrderViewModel.OrderId): @Html.DisplayFor(model => model.ProductOrderViewModel.OrderId)</div>
+<div class="form-control-static">@Html.LabelFor(model => model.ProductOrderViewModel.OrderOrdDate): @Html.DisplayFor(model => model.ProductOrderViewModel.OrderOrdDate)</div>
+<div class="form-control-static">@Html.LabelFor(model => model.ProductOrderViewModel.OrderStrId): @Html.DisplayFor(model => model.ProductOrderViewModel.OrderStrId)</div>
+
 <table>
     <tr>
-        <td>@Html.LabelFor(p => p.OrderId)</td>
-        <td>@Html.DisplayFor(p => p.OrderId)</td>
-        <td></td>
+        <td colspan="4">Products</td>
     </tr>
     <tr>
-        <td>@Html.LabelFor(p => p.OrderOrdDate)</td>
-        <td>@Html.DisplayFor(p => p.OrderOrdDate)</td>
-        <td></td>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
     </tr>
-    @foreach (var o in Model.OrderLists)
+    @foreach (var item in Model.ProductOrderViewModel.Products)
     {
         <tr>
-            <td>@o.LstId</td>
-            <td>@o.LstOrderId</td>
-            <td>@o.LstProdId</td>
+            @foreach (var p in item)
+            {
+                <td>@p.ProdId</td>
+
+                <td>@p.ProdName</td>
+                <td>@p.ProdDescription</td>
+                <td>@p.ProdPrice.ToString("#.##")</td>
+
+            }
         </tr>
     }
 </table>

@@ -20,9 +20,5 @@ namespace Project1.WebUI.Models
 
         [Display(Name = "Inventory")]
         public int InvProdInventory { get; set; }
-
-        public List<Product> Products { get; set; }
-
-        public List<StoreLocation> StoreLocations { get; set; }
     }
 }

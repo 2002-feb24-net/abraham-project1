@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Project1.Domain.Interface;
+using Project1.Domain.Model;
 using Project1.WebUI.Models;
 using System;
 using System.Collections.Generic;
@@ -21,9 +22,10 @@ namespace Project1.WebUI.Controllers
             if (search != "")
             {
                 ViewBag.Search = search;
-                var customer = Repo.GetCustomerById(search);
+                var customer = Repo.GetCustomerByFullName(search);
                 if (customer != null)
                 {
+                    TempData["fullName"] = customer.CstmFirstName + " " + customer.CstmLastName;
                     viewModel = new CustomerViewModel()
                     {
                         CstmId = customer.CstmId,
@@ -42,22 +44,42 @@ namespace Project1.WebUI.Controllers
                     };
                 }
             }
+            
             return View(viewModel);
         }
 
         public ActionResult OrderDetails(int OrderId)
         {
-            var order = Repo.GetOrderById(OrderId);
-
-            var orders = Repo.GetCustomerHistory(OrderId);
-            
-            var viewModel = new ProductOrderViewModel
+            var fullName = TempData["fullName"].ToString();
+            var customer = Repo.GetCustomerByFullName(fullName);
+            var prodOrder = Repo.GetProductOrder(customer.CstmId);
+            var orderList = Repo.GetOrderList(prodOrder.OrderId);
+            List<IEnumerable<Product>> products = new List<IEnumerable<Product>>();
+            foreach(var p in orderList)
             {
-                OrderId = order.OrderId,
-                OrderCstmId = order.OrderCstmId,
-                OrderStrId = order.OrderStrId,
-                OrderOrdDate = order.OrderOrdDate,
-                OrderLists = order.OrderList
+                var prod = Repo.GetProduct(p.LstProdId);
+                products.Add(prod);
+            }
+
+            var viewModel = new LinkViewModel
+            {
+                CustomerViewModel = new CustomerViewModel
+                {
+                    CstmId = customer.CstmId,
+                    CstmFirstName = customer.CstmFirstName,
+                    CstmLastName = customer.CstmLastName,
+                    CstmEmail = customer.CstmEmail,
+                    CstmDefaultLocation = customer.CstmDefaultStoreLocation
+                },
+                ProductOrderViewModel = new ProductOrderViewModel
+                {
+                    OrderId = prodOrder.OrderId,
+                    OrderCstmId = prodOrder.OrderCstmId,
+                    OrderStrId = prodOrder.OrderStrId,
+                    OrderOrdDate = prodOrder.OrderOrdDate,
+                    OrderLists = orderList.ToList(),
+                    Products = products
+                }
             };
             return View(viewModel);
         }

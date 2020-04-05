@@ -1,10 +1,9 @@
-﻿using Project1.Domain.Interface;
+﻿using Microsoft.EntityFrameworkCore;
 using Project1.DataAccess.Model;
+using Project1.Domain.Interface;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
 
 namespace Project1.DataAccess.Repositories
 {
@@ -19,19 +18,11 @@ namespace Project1.DataAccess.Repositories
 
         public void AddCustomer(Domain.Model.Customer customer)
         {
-            Customer entity = Mapper.MapCustomerWithOrders(customer);
+            Model.Customer entity = Mapper.MapCustomerWithOrders(customer);
             _dbContext.Add(entity);
         }
 
-        public void AddOrder(Domain.Model.ProductOrder productOrder, Domain.Model.OrderList orderList)
-        {
-            ProductOrder entity = Mapper.MapProductOrder(productOrder);
-            OrderList entity2 = Mapper.MapOrderLists(orderList);
-            _dbContext.Add(entity);
-            _dbContext.Add(entity2);
-        }
-
-        public Domain.Model.Customer GetCustomerById(string fullName)
+        public Domain.Model.Customer GetCustomerByFullName(string fullName)
         {
             var customer = _dbContext.Customer.Include(p => p.ProductOrder)
                 .FirstOrDefault(x => x.CstmFirstName + " " + x.CstmLastName == fullName);
@@ -44,37 +35,34 @@ namespace Project1.DataAccess.Repositories
 
         }
 
-        public Domain.Model.ProductOrder GetOrderById(int id)
+        public IEnumerable<Domain.Model.OrderList> GetOrderList(int id)
         {
-            var order = _dbContext.ProductOrder.Include(o => o.OrderList)
-                    .FirstOrDefault(x => x.OrderId == id);
+            var orderList = _dbContext.OrderList
+                            .Include(p => p.LstProd).AsNoTracking();
 
-            var products = _dbContext.Product.Where(p => p.OrderList.Any(o => o.LstOrderId == id)).ToList();
+            orderList = orderList.Where(o => o.LstOrderId == id);
 
-            if (order != null)
-            {
-                return Mapper.MapProductOrder(order);
-            }
-            return null;
-        }
-        public IEnumerable<Domain.Model.ProductOrder> GetStoreHistory(int id)
-        {
-            IQueryable<ProductOrder> items = _dbContext.ProductOrder
-                .Include(r => r.OrderList).AsNoTracking();
-
-            items = items.Where(r => r.OrderStrId == id);
-
-            return items.Select(Mapper.MapProductOrder);
+            return orderList.Select(Mapper.MapOrderLists);
         }
 
-        public IEnumerable<Domain.Model.ProductOrder> GetCustomerHistory(int id)
+        public IEnumerable<Domain.Model.Product> GetProduct(int? id)
         {
-            IQueryable<ProductOrder> items = _dbContext.ProductOrder
-                .Include(r => r.OrderList).AsNoTracking();
+            var product = _dbContext.Product
+                            .Include(o => o.OrderList)
+                            .AsNoTracking();
 
-            items = items.Where(r => r.OrderCstmId == id);
+            product = product.Where(p => p.ProdId == id);
 
-            return items.Select(Mapper.MapProductOrder);
+            return product.Select(Mapper.MapPrduct);
+        }
+
+        public Domain.Model.ProductOrder GetProductOrder(int id)
+        {
+            var orderList = _dbContext.ProductOrder
+                            .Include(p => p.OrderList)
+                            .FirstOrDefault(o => o.OrderCstmId == id);
+
+            return Mapper.MapProductOrder(orderList);
         }
 
         public void Save()

@@ -13,13 +13,11 @@ namespace Project1.WebUI.Models
         public int LstId { get; set; }
 
         [Display(Name = "Order ID")]
-        public int LstOrderId { get; set; }
+        public int? LstOrderId { get; set; }
 
         [Display(Name = "Product ID")]
-        public int LstProdId { get; set; }
+        public int? LstProdId { get; set; }
 
-        public List<ProductOrder> ProductOrders { get; set; }
-
-        public List<Product> Products { get; set; }
+        public List<Product> Products { get; set; } = new List<Product>(); 
     }
 }

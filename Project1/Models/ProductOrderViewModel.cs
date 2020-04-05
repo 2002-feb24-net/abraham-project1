@@ -18,13 +18,11 @@ namespace Project1.WebUI.Models
         [Display(Name = "Store ID:")]
         public int? OrderStrId { get; set; }
 
-        [Display(Name = "Order Date:")]
+        [Display(Name = "Order Date")]
         public DateTime? OrderOrdDate { get; set; }
 
-        public List<OrderList> OrderLists { get; set; }
+        public List<OrderList> OrderLists { get; set; } = new List<OrderList>();
 
-        public List<Customer> Customers { get; set; }
-
-        public List<StoreLocation> StoreLocations { get; set; }
+        public List<IEnumerable<Product>> Products { get; set; } = new List<IEnumerable<Product>>();
     }
 }

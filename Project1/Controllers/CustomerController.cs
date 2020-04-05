@@ -22,7 +22,7 @@ namespace Project1.WebUI.Controllers
             if (search != "")
             {
                 ViewBag.Search = search;
-                var customer = Repo.GetCustomerById(search);
+                var customer = Repo.GetCustomerByFullName(search);
                 if (customer != null)
                 {
                     viewModel = new CustomerViewModel()
@@ -36,6 +36,10 @@ namespace Project1.WebUI.Controllers
                 }
                 else
                 {
+                    string[] arrName = new string[2];
+                    arrName = search.Split(" ");
+                    ViewBag.FirstName = arrName[0];
+                    ViewBag.LastName = arrName[1];
                     viewModel = new CustomerViewModel()
                     {
                         CstmId = -1

@@ -17,30 +17,11 @@
 }
 @if (Model.CstmId > 0)
 {
-    <div>
-        <table>
-            <tr>
-                <td>Customer ID: </td>
-                <td>@Html.DisplayFor(model => model.CstmId)</td>
-            </tr>
-            <tr>
-                <td>First Name: </td>
-                <td>@Html.DisplayFor(model => model.CstmFirstName)</td>
-            </tr>
-            <tr>
-                <td>Last Name: </td>
-                <td>@Html.DisplayFor(model => model.CstmLastName)</td>
-            </tr>
-            <tr>
-                <td>Email: </td>
-                <td>@Html.DisplayFor(model => model.CstmEmail)</td>
-            </tr>
-            <tr>
-                <td>Default Location: </td>
-                <td>@Html.DisplayFor(model => model.CstmDefaultLocation)</td>
-            </tr>
-        </table>
-    </div>
+    <div class="form-control-static">@Html.LabelFor(model => model.CstmId): @Html.DisplayFor(model => model.CstmId)</div>
+    <div class="form-control-static">@Html.LabelFor(model => model.CstmFirstName): @Html.DisplayFor(model => model.CstmFirstName)</div>
+    <div class="form-control-static">@Html.LabelFor(model => model.CstmLastName): @Html.DisplayFor(model => model.CstmLastName)</div>
+    <div class="form-control-static">@Html.LabelFor(model => model.CstmEmail): @Html.DisplayFor(model => model.CstmEmail)</div>
+    <div class="form-control-static">@Html.LabelFor(model => model.CstmDefaultLocation): @Html.DisplayFor(model => model.CstmDefaultLocation)</div>
     <a style="padding:10px" asp-action="Index">Back to Search</a>
 }
 

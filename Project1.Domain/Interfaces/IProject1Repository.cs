@@ -7,17 +7,15 @@ namespace Project1.Domain.Interface
 {
     public interface IProject1Repository
     {
-        Customer GetCustomerById(string fullName);
-
-        ProductOrder GetOrderById(int id);
-
-        IEnumerable<ProductOrder> GetCustomerHistory(int id);
-
-        IEnumerable<ProductOrder> GetStoreHistory(int id);
+        Customer GetCustomerByFullName(string fullName);
 
         void AddCustomer(Customer customer);
 
-        void AddOrder(ProductOrder productOrder, OrderList orderList);
+        ProductOrder GetProductOrder(int id);
+
+        IEnumerable<OrderList> GetOrderList(int id);
+
+        IEnumerable<Product> GetProduct(int? id);
 
         void Save();
     }
