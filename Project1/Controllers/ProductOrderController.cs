@@ -6,6 +6,7 @@ using Project1.WebUI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Project1.WebUI.Controllers
@@ -87,32 +88,54 @@ namespace Project1.WebUI.Controllers
 
         public ActionResult AddOrder(string search = "")
         {
-            var customer = Repo.GetCustomerByFullName(search);
-            var storeLoc = Repo.GetStoreLocations();
-            var products = Repo.GetAllProducts();
-            List<SelectListItem> selectListItems = new List<SelectListItem>();
-            foreach(var li in storeLoc)
+            if(TempData["fullName"] != null)
             {
-                selectListItems.Add(new SelectListItem { Text = li.LocCity, Value = li.LocId.ToString() });
+                search = TempData["fullName"].ToString();
             }
-
-            var viewModel = new LinkViewModel
+            LinkViewModel viewModel = new LinkViewModel();
+            if (search != "")
             {
-                CustomerViewModel = new CustomerViewModel
+                var customer = Repo.GetCustomerByFullName(search);
+                var storeLoc = Repo.GetStoreLocations();
+                var products = Repo.GetAllProducts();
+
+                if (customer != null)
                 {
-                    CstmId = customer.CstmId,
-                    CstmFirstName = customer.CstmFirstName,
-                    CstmLastName = customer.CstmLastName,
-                    CstmEmail = customer.CstmEmail,
-                    CstmDefaultLocation = customer.CstmDefaultStoreLocation
-                },
-                productViewModels = products.ToList(),
-                storeLocationViewModels = storeLoc.ToList(),
-                LocationList = selectListItems
+                    List<SelectListItem> selectListLoc = new List<SelectListItem>();
+                    List<SelectListItem> selectListProd = new List<SelectListItem>();
 
-            };
-            return View(viewModel);
+                    foreach(var pr in products)
+                    {
+                        string n = pr.ProdName;
+                        string d = pr.ProdDescription;
+                        string p = "$" + pr.ProdPrice.ToString("#.##");
+
+                        selectListProd.Add(new SelectListItem { Text = n + " " + d + " " + p, Value = pr.ProdId.ToString() });
+                    }
+
+                    foreach (var li in storeLoc)
+                    {
+                        selectListLoc.Add(new SelectListItem { Text = li.LocCity, Value = li.LocId.ToString() });
+                    }
+
+                    viewModel = new LinkViewModel
+                    {
+                        CustomerViewModel = new CustomerViewModel()
+                        {
+                            CstmId = customer.CstmId,
+                            CstmFirstName = customer.CstmFirstName,
+                            CstmLastName = customer.CstmLastName,
+                            CstmEmail = customer.CstmEmail,
+                            CstmDefaultLocation = customer.CstmDefaultStoreLocation
+                        },
+                        LocationList = selectListLoc,
+                        MakeDefault = false,
+                        ProductList = selectListProd
+                    };
+                return View(viewModel);
+                }
+            }
+            return RedirectToAction("Index", "ProductOrder", TempData["Redirected"] = "Redirected");
         }
-
     }
 }

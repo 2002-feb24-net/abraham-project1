@@ -18,8 +18,18 @@ namespace Project1.WebUI.Models
 
         public List<StoreLocation> storeLocationViewModels { get; set; } = new List<StoreLocation>();
 
-        public int[] SelectedLocation { get; set; }
+        [Display(Name = "Select Location")]
+        public int[] SelectedLocation { get; set; } = new int[0];
 
         public IEnumerable<SelectListItem> LocationList { get; set; }
+
+        [Display(Name = "Make Store Default?")]
+        public bool MakeDefault { get; set; }
+
+        [Display(Name = "Select Products")]
+        public int[] SelectedProduct { get; set; }
+
+        [Display(Name = "Product List")]
+        public IEnumerable<SelectListItem> ProductList { get; set; }
     }
 }

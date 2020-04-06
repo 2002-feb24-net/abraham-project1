@@ -6,13 +6,19 @@
 
 @if (Model.CstmId == 0)
 {
+    if(TempData["Redirected"] != null)
+    {
+        <p style="color:red">You must enter a name to search or add order!</p>
+    }
     <p>Enter the first name and last name of a customer with an order:</p>
     <div>
         <form method="GET" class="form-inline">
             <label class="sr-only" for="search">Search:</label>
             <input type="search" class="form-control mb-2 mr-sm-2 mb-sm-0" id="search" name="search" placeholder="Search" />
-            <button type="submit" class="btn btn-primary" asp-action="Index">Submit</button>
-            <button type="submit" class="btn btn-primary" asp-action="AddOrder">AddOrder</button>
+            <div>
+                <button type="submit" class="btn btn-primary form-control-static" asp-action="Index">Search</button>
+                <button type="submit" class="btn btn-primary form-control-static" asp-action="AddOrder">Add Order</button>
+            </div>
         </form>
     </div>
 }
@@ -34,7 +40,7 @@
             <td>Order Date</td>
             <td></td>
         </tr>
-        @foreach(var p in Model.ProductOrders)
+        @foreach (var p in Model.ProductOrders)
         {
             <tr>
                 <td>@p.OrderId</td>
@@ -43,5 +49,15 @@
             </tr>
         }
     </table>
+    TempData["fullName"] = Model.CstmFirstName + " " + Model.CstmLastName;
     <a style="padding:10px" asp-action="Index">Back to Search</a>
+    <a style="padding:10px" asp-action="AddOrder">Add New Order</a>
+}
+@if (Model.CstmId == -1)
+{
+    <br />
+    <div>
+        <p>The customer does not exist in our Database. Would you like to add them?</p>
+        <a style="padding:10px" asp-controller="Customer" asp-action="AddCustomer">Add Customer</a>  <a style="padding:10px" asp-action="Index">Back to Search</a>
+    </div>
 }

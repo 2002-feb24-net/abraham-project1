@@ -21,7 +21,6 @@ namespace Project1.WebUI.Controllers
             CustomerViewModel viewModel = new CustomerViewModel();
             if (search != "")
             {
-                ViewBag.Search = search;
                 var customer = Repo.GetCustomerByFullName(search);
                 if (customer != null)
                 {
@@ -37,12 +36,16 @@ namespace Project1.WebUI.Controllers
                 else
                 {
                     string[] arrName = new string[2];
-                    arrName = search.Split(" ");
-                    ViewBag.FirstName = arrName[0];
-                    ViewBag.LastName = arrName[1];
+                    if (search != null)
+                    {
+                        arrName = search.Split(" ");
+                        ViewData["FirstName"] = arrName[0];
+                        ViewData["LastName"] = arrName[1];
+                    }
                     viewModel = new CustomerViewModel()
                     {
                         CstmId = -1
+                        
                     };
                 }
             }            

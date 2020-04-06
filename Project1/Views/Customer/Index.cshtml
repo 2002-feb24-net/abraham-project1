@@ -11,7 +11,10 @@
         <form asp-action="Index" method="GET" class="form-inline">
             <label class="sr-only" for="search">Search:</label>
             <input type="search" class="form-control mb-2 mr-sm-2 mb-sm-0" id="search" name="search" placeholder="Search" />
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <div>
+                <button type="submit" class="btn btn-primary form-control-static">Search</button>
+                <button type="submit" class="btn btn-primary form-control-static" asp-action="AddCustomer">Add Customer</button>
+            </div>
         </form>
     </div>
 }
@@ -22,7 +25,7 @@
     <div class="form-control-static">@Html.LabelFor(model => model.CstmLastName): @Html.DisplayFor(model => model.CstmLastName)</div>
     <div class="form-control-static">@Html.LabelFor(model => model.CstmEmail): @Html.DisplayFor(model => model.CstmEmail)</div>
     <div class="form-control-static">@Html.LabelFor(model => model.CstmDefaultLocation): @Html.DisplayFor(model => model.CstmDefaultLocation)</div>
-    <a style="padding:10px" asp-action="Index">Back to Search</a>
+    <a asp-action="Index">Back to Search</a>
 }
 
 @if (Model.CstmId == -1)

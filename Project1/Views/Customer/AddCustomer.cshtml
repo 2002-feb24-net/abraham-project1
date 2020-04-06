@@ -9,7 +9,7 @@
         <table>
             <tr>
                 <td align="right" style="padding-right:5px">@Html.LabelFor(model => model.CstmFirstName)</td>
-                <td>@Html.TextBoxFor(model => model.CstmFirstName)</td>
+                <td>@Html.TextBoxFor(model => model.CstmFirstName, ViewData["FirstName"])</td>
             </tr>
             <tr>
                 <td align="right" style="padding-right:5px">@Html.LabelFor(model => model.CstmLastName)</td>
