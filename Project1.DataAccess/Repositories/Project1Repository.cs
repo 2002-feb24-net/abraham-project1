@@ -22,6 +22,39 @@ namespace Project1.DataAccess.Repositories
             _dbContext.Add(entity);
         }
 
+        public void UpdateCustomer(Domain.Model.Customer customer)
+        {
+            var cstm = _dbContext.Customer.FirstOrDefault(x => x.CstmId == customer.CstmId);
+            cstm.CstmDefaultStoreLoc = customer.CstmDefaultStoreLocation;
+            _dbContext.Update(cstm);
+        }
+
+        public void AddProductOrder(Domain.Model.ProductOrder productOrder)
+        {
+            Model.ProductOrder entity = Mapper.MapProductOrder(productOrder);
+            _dbContext.Add(entity);
+        }
+
+        public int GetMaxProductOrderID()
+        {
+            int maxId = 0;
+            maxId = _dbContext.ProductOrder.Max(p => p.OrderId);
+            return maxId;
+        }
+
+        public int GetMaxOrderListID()
+        {
+            int maxId = 0;
+            maxId = _dbContext.OrderList.Max(p => p.LstId);
+            int orderListID = maxId + 1;
+            return orderListID;
+        }
+        public void AddOrderList(Domain.Model.OrderList orderList)
+        {
+            Model.OrderList entity = Mapper.MapOrderLists(orderList);
+            _dbContext.Add(entity);
+        }
+
         public Domain.Model.Customer GetCustomerByFullName(string fullName)
         {
             var customer = _dbContext.Customer.Include(p => p.ProductOrder)
@@ -60,7 +93,7 @@ namespace Project1.DataAccess.Repositories
         {
             var orderList = _dbContext.ProductOrder
                             .Include(p => p.OrderList)
-                            .FirstOrDefault(o => o.OrderCstmId == id);
+                            .FirstOrDefault(o => o.OrderId == id);
 
             return Mapper.MapProductOrder(orderList);
         }

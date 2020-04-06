@@ -11,6 +11,16 @@ namespace Project1.Domain.Interface
 
         void AddCustomer(Customer customer);
 
+        void UpdateCustomer(Customer customer);
+
+        void AddProductOrder(ProductOrder productOrder);
+
+        void AddOrderList(OrderList orderList);
+
+        int GetMaxProductOrderID();
+
+        int GetMaxOrderListID();
+
         ProductOrder GetProductOrder(int id);
 
         IEnumerable<OrderList> GetOrderList(int id);

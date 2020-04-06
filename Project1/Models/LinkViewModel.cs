@@ -19,7 +19,7 @@ namespace Project1.WebUI.Models
         public List<StoreLocation> storeLocationViewModels { get; set; } = new List<StoreLocation>();
 
         [Display(Name = "Select Location")]
-        public int[] SelectedLocation { get; set; } = new int[0];
+        public int? SelectedLocation { get; set; }
 
         public IEnumerable<SelectListItem> LocationList { get; set; }
 

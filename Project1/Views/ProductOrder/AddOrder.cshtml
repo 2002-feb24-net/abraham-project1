@@ -9,9 +9,16 @@
     }
 </style>
 <h1>@ViewData["Title"]</h1>
-<div class="form-control-static">@Html.LabelFor(model => model.CustomerViewModel.CstmFirstName): @Html.TextBoxFor(model => model.CustomerViewModel.CstmFirstName)</div>
-<div class="form-control-static">@Html.LabelFor(model => model.CustomerViewModel.CstmLastName): @Html.TextBoxFor(model => model.CustomerViewModel.CstmLastName)</div>
-<div class="form-control-static">@Html.LabelFor(model => model.LocationList): @Html.DropDownListFor(model => model.SelectedLocation, Model.LocationList, "Select Location")</div>
-<div class="form-control-static">@Html.LabelFor(model => model.MakeDefault) @Html.CheckBoxFor(model => model.MakeDefault)</div>
-<div class="form-control-static">@Html.LabelFor(model => model.ProductList) @Html.ListBoxFor(model => model.SelectedProduct, Model.ProductList, new { size=10, @class="form-control", style="width:400px"})</div>
-<div class="form-control-static"><a>Add Item</a></div>
+<form method="POST">
+    <div class="form-control-static">@Html.LabelFor(model => model.CustomerViewModel.CstmFirstName): @Html.TextBoxFor(model => model.CustomerViewModel.CstmFirstName)</div>
+    <div class="form-control-static">@Html.LabelFor(model => model.CustomerViewModel.CstmLastName): @Html.TextBoxFor(model => model.CustomerViewModel.CstmLastName)</div>
+    <div class="form-control-static">@Html.LabelFor(model => model.LocationList): @Html.DropDownListFor(model => model.SelectedLocation, Model.LocationList, "Select Location")</div>
+    <div class="form-control-static">@Html.LabelFor(model => model.MakeDefault) @Html.CheckBoxFor(model => model.MakeDefault)</div>
+    <div class="form-control-static">@Html.LabelFor(model => model.ProductList) @Html.ListBoxFor(model => model.SelectedProduct, Model.ProductList, new { size = 10, @class = "form-control ", style = "width:400px" })</div>
+    <div style="display:none">
+        @Html.TextBoxFor(model => model.CustomerViewModel.CstmId)
+        @Html.TextBoxFor(model => model.CustomerViewModel.CstmEmail)
+        @Html.TextBoxFor(model => model.CustomerViewModel.CstmDefaultLocation)
+    </div>
+    <button type="submit" class="btn btn-primary form-control-static" asp-action="PostOrder">Add Order</button>
+</form>

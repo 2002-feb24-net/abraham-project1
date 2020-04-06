@@ -50,11 +50,11 @@ namespace Project1.WebUI.Controllers
             return View(viewModel);
         }
 
-        public ActionResult OrderDetails(string search)
+        public ActionResult OrderDetails(int orderId)
         {
             var fullName = TempData["fullName"].ToString();
             var customer = Repo.GetCustomerByFullName(fullName);
-            var prodOrder = Repo.GetProductOrder(customer.CstmId);
+            var prodOrder = Repo.GetProductOrder(orderId);
             var orderList = Repo.GetOrderList(prodOrder.OrderId);
             List<IEnumerable<Product>> products = new List<IEnumerable<Product>>();
             foreach(var p in orderList)
@@ -106,11 +106,18 @@ namespace Project1.WebUI.Controllers
 
                     foreach(var pr in products)
                     {
-                        string n = pr.ProdName;
-                        string d = pr.ProdDescription;
-                        string p = "$" + pr.ProdPrice.ToString("#.##");
+                        //string n = pr.ProdName;
+                        //string d = pr.ProdDescription;
+                        //string p = "$" + pr.ProdPrice.ToString("#.##");
 
-                        selectListProd.Add(new SelectListItem { Text = n + " " + d + " " + p, Value = pr.ProdId.ToString() });
+                        //selectListProd.Add(new SelectListItem { Text = n + " " + d + " " + p, Value = pr.ProdId.ToString() });
+                        SelectListItem selectListItem = new SelectListItem()
+                        {
+                            Text = pr.ProdName,
+                            Value = pr.ProdId.ToString(),
+                            Selected = false
+                        };
+                        selectListProd.Add(selectListItem);
                     }
 
                     foreach (var li in storeLoc)
@@ -136,6 +143,55 @@ namespace Project1.WebUI.Controllers
                 }
             }
             return RedirectToAction("Index", "ProductOrder", TempData["Redirected"] = "Redirected");
+        }
+
+        [HttpPost]
+        public ActionResult PostOrder(LinkViewModel linkViewModel)
+        {
+            LinkViewModel linkView = new LinkViewModel();
+            if (linkViewModel == null)
+            {
+                return RedirectToAction("Index", "ProductOrder", TempData["Redirected"] = "Redirected");
+            }
+            else
+            {
+                if (linkViewModel.MakeDefault)
+                {
+                    string fullName = linkViewModel.CustomerViewModel.CstmFirstName + " " + linkViewModel.CustomerViewModel.CstmLastName;
+                    var customer = Repo.GetCustomerByFullName(fullName);
+
+                    var cstm = new Customer()
+                    {
+                        CstmId = linkViewModel.CustomerViewModel.CstmId,
+                        CstmFirstName = linkViewModel.CustomerViewModel.CstmFirstName,
+                        CstmLastName = linkViewModel.CustomerViewModel.CstmLastName,
+                        CstmEmail = linkViewModel.CustomerViewModel.CstmEmail,
+                        CstmDefaultStoreLocation = linkViewModel.SelectedLocation
+                    };
+                    Repo.UpdateCustomer(cstm);
+                    Repo.Save();
+
+                }
+                var productOrder = new ProductOrder()
+                {
+                    OrderCstmId = linkViewModel.CustomerViewModel.CstmId,
+                    OrderStrId = linkViewModel.SelectedLocation
+                };
+                Repo.AddProductOrder(productOrder);
+                Repo.Save();
+                var orderId = Repo.GetMaxProductOrderID();
+                foreach(var item in linkViewModel.SelectedProduct)
+                {
+                    var orderList = new OrderList()
+                    {
+                        LstOrderId = orderId,
+                        LstProdId = item
+                    };
+                    Repo.AddOrderList(orderList);
+                    Repo.Save();
+                }
+                return View();
+            }
         }
     }
 }
