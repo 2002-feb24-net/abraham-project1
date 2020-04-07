@@ -5,23 +5,24 @@
 <h1>@ViewData["Title"]</h1>
 
 <div>
-    <form asp-action="AddCustomer" method="POST" class="form-check">
+    @using (Html.BeginForm("AddCustomer", "Customer"))
+    {
         <table>
             <tr>
                 <td align="right" style="padding-right:5px">@Html.LabelFor(model => model.CstmFirstName)</td>
-                <td>@Html.TextBoxFor(model => model.CstmFirstName, ViewData["FirstName"])</td>
+                <td>@Html.TextBoxFor(model => model.CstmFirstName) <font style="color:red">@Html.ValidationMessageFor(model => model.CstmFirstName)</font></td>
             </tr>
             <tr>
                 <td align="right" style="padding-right:5px">@Html.LabelFor(model => model.CstmLastName)</td>
-                <td>@Html.TextBoxFor(model => model.CstmLastName)</td>
+                <td>@Html.TextBoxFor(model => model.CstmLastName) <font style="color:red">@Html.ValidationMessageFor(model => model.CstmLastName)</font></td>
             </tr>
             <tr>
                 <td align="right" style="padding-right:5px">@Html.LabelFor(model => model.CstmEmail)</td>
-                <td>@Html.TextBoxFor(model => model.CstmEmail)</td>
+                <td>@Html.TextBoxFor(model => model.CstmEmail) <font style="color:red">@Html.ValidationMessageFor(model => model.CstmEmail)</font></td>
             </tr>
             <tr>
                 <td align="center" colspan="2"><button style="align-items:center" type="submit" class="btn btn-primary">Submit</button><a style="padding:10px" asp-action="Index">Cancel</a></td>
             </tr>
         </table>
-    </form>
+    }
 </div>

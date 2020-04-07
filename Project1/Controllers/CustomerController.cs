@@ -35,26 +35,25 @@ namespace Project1.WebUI.Controllers
                 }
                 else
                 {
-                    string[] arrName = new string[2];
-                    if (search != null)
-                    {
-                        arrName = search.Split(" ");
-                        ViewData["FirstName"] = arrName[0];
-                        ViewData["LastName"] = arrName[1];
-                    }
-                    viewModel = new CustomerViewModel()
-                    {
-                        CstmId = -1
-                        
-                    };
+                    TempData["NoExist"] = search;
                 }
-            }            
+            }
             return View(viewModel);
         }
 
-        public ActionResult AddCustomer()
+        public ActionResult AddCustomer(string search = "")
         {
-            return View();
+            var customer = new CustomerViewModel();
+            if (search != "")
+            {
+                var arr = search.Split(" ");
+                customer = new CustomerViewModel
+                {
+                    CstmFirstName = arr[0],
+                    CstmLastName = arr[1]
+                };
+            }
+            return View(customer);
         }
 
         [HttpPost]
@@ -72,7 +71,7 @@ namespace Project1.WebUI.Controllers
                     };
                     Repo.AddCustomer(customer);
                     Repo.Save();
-
+                    TempData["Success"] = viewModel.CstmFirstName + " " + viewModel.CstmLastName + " added to the Database!";
                     return RedirectToAction(nameof(Index));
                 }
                 return View(viewModel);
