@@ -14,7 +14,11 @@ namespace Project1.WebUI.Models
 
         public ProductOrderViewModel ProductOrderViewModel { get; set; }
 
+        public StoreLocationViewModel StoreLocationViewModel { get; set; }
+
         public List<Product> productViewModels { get; set; } = new List<Product>();
+
+        public List<ProductOrder> productOrders { get; set; } = new List<ProductOrder>();
 
         public List<StoreLocation> storeLocationViewModels { get; set; } = new List<StoreLocation>();
 

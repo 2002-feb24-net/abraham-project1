@@ -23,6 +23,8 @@ namespace Project1.Domain.Interface
 
         ProductOrder GetProductOrder(int id);
 
+        StoreLocation GetStoreProductOrder(int? id);
+
         IEnumerable<OrderList> GetOrderList(int id);
 
         IEnumerable<Product> GetProduct(int? id);

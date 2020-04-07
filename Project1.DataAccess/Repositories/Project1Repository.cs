@@ -98,6 +98,16 @@ namespace Project1.DataAccess.Repositories
             return Mapper.MapProductOrder(orderList);
         }
 
+        public Domain.Model.StoreLocation GetStoreProductOrder(int? id)
+        {
+            var orderList = _dbContext.StoreLocation
+                            .Include(p => p.ProductOrder)
+                            .Include(s => s.StoreInventory)
+                            .FirstOrDefault(o => o.LocId == id);
+
+            return Mapper.MapStoreLocation(orderList);
+        }
+
         public IEnumerable<Domain.Model.StoreLocation> GetStoreLocations()
         {
             var storeLoc = _dbContext.StoreLocation;

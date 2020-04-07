@@ -106,14 +106,12 @@ namespace Project1.WebUI.Controllers
 
                     foreach(var pr in products)
                     {
-                        //string n = pr.ProdName;
-                        //string d = pr.ProdDescription;
-                        //string p = "$" + pr.ProdPrice.ToString("#.##");
-
-                        //selectListProd.Add(new SelectListItem { Text = n + " " + d + " " + p, Value = pr.ProdId.ToString() });
+                        string n = pr.ProdName;
+                        string d = pr.ProdDescription;
+                        string p = "$" + pr.ProdPrice.ToString("#.##");
                         SelectListItem selectListItem = new SelectListItem()
                         {
-                            Text = pr.ProdName,
+                            Text = n + " " + d + " " + p,
                             Value = pr.ProdId.ToString(),
                             Selected = false
                         };

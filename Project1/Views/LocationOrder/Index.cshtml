@@ -1,0 +1,44 @@
+﻿@model LinkViewModel
+@{
+    ViewData["Title"] = "Locations";
+}
+<h1>@ViewData["Title"]</h1>
+
+@if (Model.SelectedLocation == null)
+{
+    <div>
+        <form method="GET" class="form-inline">
+            <label class="sr-only" for="search">Search:</label>
+            <div class="form-control-static" style="padding-right:5px">@Html.LabelFor(model => model.SelectedLocation)</div>
+            <div class="form-control-static" style="padding:5px">@Html.DropDownListFor(model => model.SelectedLocation, Model.LocationList, "Select Location")</div>
+            <div class="form-control-static" style="padding-left:5px"><button type="submit" class="btn btn-primary" asp-action="Index">Search</button></div>
+        </form>
+    </div>
+}
+@if (Model.SelectedLocation > 0)
+{
+    <div>@Html.LabelFor(model => model.StoreLocationViewModel.LocId): @Html.DisplayFor(model => model.StoreLocationViewModel.LocId)</div>
+    <div>@Html.LabelFor(model => model.StoreLocationViewModel.LocStreet): @Html.DisplayFor(model => model.StoreLocationViewModel.LocStreet)</div>
+    <div>@Html.LabelFor(model => model.StoreLocationViewModel.LocCity): @Html.DisplayFor(model => model.StoreLocationViewModel.LocCity)</div>
+    <div>@Html.LabelFor(model => model.StoreLocationViewModel.LocCountry): @Html.DisplayFor(model => model.StoreLocationViewModel.LocCountry)</div>
+    <table>
+        <tr>
+            <td>Store ID</td>
+            <td>Customer ID</td>
+            <td>Order Date</td>
+        </tr>
+    @{ 
+        foreach(var o in Model.productOrders)
+        {
+            <tr>
+                <td>@o.OrderId</td>
+                <td>@o.OrderCstmId</td>
+                <td>@o.OrderOrdDate</td>
+                @*<td>@Html.ActionLink("Details", "OrderDetails", "ProductOrder", new { OrderId = o.OrderId })</td>*@
+            </tr>
+        }
+    }
+    </table>
+
+
+}
